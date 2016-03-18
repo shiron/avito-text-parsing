@@ -58,7 +58,7 @@ def detect_fraud(tokens):
     is_fraud = False
     for token in tokens:
         is_fraud_word, recovery_token = word.detect_fraud(token)
-        if is_fraud_word == True:
+        if is_fraud_word:
             is_fraud = True
         new_tokens.append(recovery_token)
     return is_fraud, new_tokens
@@ -73,6 +73,6 @@ def academic_sickness(tokens):
         mc = count.most_common(COUNT_FREQUENT_WORDS)
 
         sum_frequent_words = 0
-        for word in mc:
-            sum_frequent_words += word[1]
+        for element in mc:
+            sum_frequent_words += element[1]
         return sum_frequent_words / len(tokens)

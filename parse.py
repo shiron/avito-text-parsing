@@ -7,15 +7,10 @@ import os
 import argparse
 
 
-DATA_DIR = './text_files/'
-COUNT_WORKERS = 1
-PATH_DB = 'result.db'
-
-
 def parse(file, db_path):
     # open text file and get tokens
     print('In processing: {}'.format(file))
-    with open(DATA_DIR + file) as text_file:
+    with open(file) as text_file:
         is_fraud, tokens = document.tokenize(text_file.read().decode('utf-8'))
 
     # get academic sickness
@@ -29,8 +24,8 @@ def run_pools(files_dir, count_workers, db_path):
     """Run parse files in threads"""
     with ThreadPoolExecutor(max_workers=count_workers) as executor:
         file_list = os.listdir(files_dir)
-        for file in file_list:
-            executor.submit(parse, file, db_path)
+        for element in file_list:
+            executor.submit(parse, files_dir + '/' + element, db_path)
 
 if __name__ == "__main__":
     m = argparse.ArgumentParser(description="Run parsing text")
